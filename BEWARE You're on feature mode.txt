@@ -1,0 +1,3 @@
+very unstable
+bugs may occur
+switch to 'master' branch for stable version
