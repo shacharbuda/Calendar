@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58A6F0F8-75E8-468A-A55D-8AD15476932E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Calendar</RootNamespace>
+    <AssemblyName>Calendar</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormChooseEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChooseEvent.Designer.cs">
+      <DependentUpon>FormChooseEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetAnnuals.cs">
+      <DependentUpon>DataSetAnnuals.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSetAnnuals.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetAnnuals.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetCities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCities.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetEvents.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetEvents.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetEventTypes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetEventTypes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetParashot.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetParashot.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetUsers.cs">
+      <DependentUpon>DataSetUsers.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSetUsers.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetUsers.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddAnnual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddAnnual.Designer.cs">
+      <DependentUpon>FormAddAnnual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddCity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddCity.Designer.cs">
+      <DependentUpon>FormAddCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddEvent.Designer.cs">
+      <DependentUpon>FormAddEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddEventType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddEventType.Designer.cs">
+      <DependentUpon>FormAddEventType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddYear.Designer.cs">
+      <DependentUpon>FormAddYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddUser.Designer.cs">
+      <DependentUpon>FormAddUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCalendar.Designer.cs">
+      <DependentUpon>FormCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChartAnnualsByGregMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChartAnnualsByGregMonth.Designer.cs">
+      <DependentUpon>FormChartAnnualsByGregMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChartAnnualsByType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChartAnnualsByType.Designer.cs">
+      <DependentUpon>FormChartAnnualsByType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChartEventsByMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChartEventsByMonth.Designer.cs">
+      <DependentUpon>FormChartEventsByMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChartEventsByType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChartEventsByType.Designer.cs">
+      <DependentUpon>FormChartEventsByType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormChartUsersByCity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChartUsersByCity.Designer.cs">
+      <DependentUpon>FormChartUsersByCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptAnnualsByDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptAnnualsByDate.Designer.cs">
+      <DependentUpon>FormRptAnnualsByDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptAnnualsByDays.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptAnnualsByDays.Designer.cs">
+      <DependentUpon>FormRptAnnualsByDays.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptAnnualsByMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptAnnualsByMonth.Designer.cs">
+      <DependentUpon>FormRptAnnualsByMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptAnnualsByType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptAnnualsByType.Designer.cs">
+      <DependentUpon>FormRptAnnualsByType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptEventsByDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptEventsByDate.Designer.cs">
+      <DependentUpon>FormRptEventsByDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptEventsByType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptEventsByType.Designer.cs">
+      <DependentUpon>FormRptEventsByType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptEventsByMember.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptEventsByMember.Designer.cs">
+      <DependentUpon>FormRptEventsByMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptParashot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptParashot.Designer.cs">
+      <DependentUpon>FormRptParashot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptShowPictureEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptShowPictureEvent.Designer.cs">
+      <DependentUpon>FormRptShowPictureEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptShowPictureUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptShowPictureUser.Designer.cs">
+      <DependentUpon>FormRptShowPictureUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptUsersByCity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptUsersByCity.Designer.cs">
+      <DependentUpon>FormRptUsersByCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRptShowPictureAnnual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRptShowPictureAnnual.Designer.cs">
+      <DependentUpon>FormRptShowPictureAnnual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblAnnuals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblAnnuals.Designer.cs">
+      <DependentUpon>FormTblAnnuals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblCities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblCities.Designer.cs">
+      <DependentUpon>FormTblCities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblEvents.Designer.cs">
+      <DependentUpon>FormTblEvents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblEventTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblEventTypes.Designer.cs">
+      <DependentUpon>FormTblEventTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblParashot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblParashot.Designer.cs">
+      <DependentUpon>FormTblParashot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTblUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTblUsers.Designer.cs">
+      <DependentUpon>FormTblUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdateAnnual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUpdateAnnual.Designer.cs">
+      <DependentUpon>FormUpdateAnnual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdateEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUpdateEvent.Designer.cs">
+      <DependentUpon>FormUpdateEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUpdateUser.Designer.cs">
+      <DependentUpon>FormUpdateUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdateYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUpdateYear.Designer.cs">
+      <DependentUpon>FormUpdateYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parashot.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormChooseEvent.resx">
+      <DependentUpon>FormChooseEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddAnnual.resx">
+      <DependentUpon>FormAddAnnual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddCity.resx">
+      <DependentUpon>FormAddCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddEvent.resx">
+      <DependentUpon>FormAddEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddEventType.resx">
+      <DependentUpon>FormAddEventType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddUser.resx">
+      <DependentUpon>FormAddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddYear.resx">
+      <DependentUpon>FormAddYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCalendar.resx">
+      <DependentUpon>FormCalendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChartAnnualsByGregMonth.resx">
+      <DependentUpon>FormChartAnnualsByGregMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChartAnnualsByType.resx">
+      <DependentUpon>FormChartAnnualsByType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChartEventsByMonth.resx">
+      <DependentUpon>FormChartEventsByMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChartEventsByType.resx">
+      <DependentUpon>FormChartEventsByType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChartUsersByCity.resx">
+      <DependentUpon>FormChartUsersByCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptAnnualsByDate.resx">
+      <DependentUpon>FormRptAnnualsByDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptAnnualsByDays.resx">
+      <DependentUpon>FormRptAnnualsByDays.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptAnnualsByMonth.resx">
+      <DependentUpon>FormRptAnnualsByMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptAnnualsByType.resx">
+      <DependentUpon>FormRptAnnualsByType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptEventsByDate.resx">
+      <DependentUpon>FormRptEventsByDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptEventsByType.resx">
+      <DependentUpon>FormRptEventsByType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptEventsByMember.resx">
+      <DependentUpon>FormRptEventsByMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptParashot.resx">
+      <DependentUpon>FormRptParashot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptShowPictureEvent.resx">
+      <DependentUpon>FormRptShowPictureEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptShowPictureUser.resx">
+      <DependentUpon>FormRptShowPictureUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptUsersByCity.resx">
+      <DependentUpon>FormRptUsersByCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRptShowPictureAnnual.resx">
+      <DependentUpon>FormRptShowPictureAnnual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblAnnuals.resx">
+      <DependentUpon>FormTblAnnuals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblCities.resx">
+      <DependentUpon>FormTblCities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblEvents.resx">
+      <DependentUpon>FormTblEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblEventTypes.resx">
+      <DependentUpon>FormTblEventTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblParashot.resx">
+      <DependentUpon>FormTblParashot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTblUsers.resx">
+      <DependentUpon>FormTblUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdateAnnual.resx">
+      <DependentUpon>FormUpdateAnnual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdateEvent.resx">
+      <DependentUpon>FormUpdateEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdateUser.resx">
+      <DependentUpon>FormUpdateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdateYear.resx">
+      <DependentUpon>FormUpdateYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="DataSetAnnuals.xsc">
+      <DependentUpon>DataSetAnnuals.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetAnnuals.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetAnnuals.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetAnnuals.xss">
+      <DependentUpon>DataSetAnnuals.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCities.xsc">
+      <DependentUpon>DataSetCities.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCities.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCities.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetCities.xss">
+      <DependentUpon>DataSetCities.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetEvents.xsc">
+      <DependentUpon>DataSetEvents.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetEvents.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetEvents.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetEvents.xss">
+      <DependentUpon>DataSetEvents.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetEventTypes.xsc">
+      <DependentUpon>DataSetEventTypes.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetEventTypes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetEventTypes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetEventTypes.xss">
+      <DependentUpon>DataSetEventTypes.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetParashot.xsc">
+      <DependentUpon>DataSetParashot.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetParashot.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetParashot.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetParashot.xss">
+      <DependentUpon>DataSetParashot.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetUsers.xsc">
+      <DependentUpon>DataSetUsers.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetUsers.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetUsers.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetUsers.xss">
+      <DependentUpon>DataSetUsers.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainLogo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainLogo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
