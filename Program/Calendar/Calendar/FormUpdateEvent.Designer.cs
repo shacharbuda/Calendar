@@ -53,14 +53,6 @@
             this.evName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.eventIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventMemberIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventMinutesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.eventPictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstButton = new System.Windows.Forms.Button();
             this.lastButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
@@ -70,6 +62,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.eventIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventMemberIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventMinutesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.eventPictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetEvents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblEventsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -95,12 +95,15 @@
             // 
             // evTime
             // 
-            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.evTime.CustomFormat = "HH:mm";
+            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.evTime.Location = new System.Drawing.Point(879, 159);
             this.evTime.Margin = new System.Windows.Forms.Padding(4);
             this.evTime.Name = "evTime";
+            this.evTime.ShowUpDown = true;
             this.evTime.Size = new System.Drawing.Size(103, 22);
             this.evTime.TabIndex = 101;
+            this.evTime.Value = new System.DateTime(2017, 6, 20, 0, 0, 0, 0);
             // 
             // evDate
             // 
@@ -280,57 +283,6 @@
             this.dataGridView2.TabIndex = 86;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
-            // eventIDDataGridViewTextBoxColumn
-            // 
-            this.eventIDDataGridViewTextBoxColumn.DataPropertyName = "eventID";
-            this.eventIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. אירוע";
-            this.eventIDDataGridViewTextBoxColumn.Name = "eventIDDataGridViewTextBoxColumn";
-            // 
-            // eventTypeDataGridViewTextBoxColumn
-            // 
-            this.eventTypeDataGridViewTextBoxColumn.DataPropertyName = "eventType";
-            this.eventTypeDataGridViewTextBoxColumn.HeaderText = "סוג אירוע";
-            this.eventTypeDataGridViewTextBoxColumn.Name = "eventTypeDataGridViewTextBoxColumn";
-            // 
-            // eventNameDataGridViewTextBoxColumn
-            // 
-            this.eventNameDataGridViewTextBoxColumn.DataPropertyName = "eventName";
-            this.eventNameDataGridViewTextBoxColumn.HeaderText = "שם אירוע";
-            this.eventNameDataGridViewTextBoxColumn.Name = "eventNameDataGridViewTextBoxColumn";
-            // 
-            // eventMemberIDDataGridViewTextBoxColumn
-            // 
-            this.eventMemberIDDataGridViewTextBoxColumn.DataPropertyName = "eventMemberID";
-            this.eventMemberIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. בעל אירוע";
-            this.eventMemberIDDataGridViewTextBoxColumn.Name = "eventMemberIDDataGridViewTextBoxColumn";
-            // 
-            // eventDateDataGridViewTextBoxColumn
-            // 
-            this.eventDateDataGridViewTextBoxColumn.DataPropertyName = "eventDate";
-            this.eventDateDataGridViewTextBoxColumn.HeaderText = "תאריך";
-            this.eventDateDataGridViewTextBoxColumn.Name = "eventDateDataGridViewTextBoxColumn";
-            // 
-            // eventTimeDataGridViewTextBoxColumn
-            // 
-            this.eventTimeDataGridViewTextBoxColumn.DataPropertyName = "eventTime";
-            dataGridViewCellStyle1.Format = "t";
-            dataGridViewCellStyle1.NullValue = null;
-            this.eventTimeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.eventTimeDataGridViewTextBoxColumn.HeaderText = "שעה";
-            this.eventTimeDataGridViewTextBoxColumn.Name = "eventTimeDataGridViewTextBoxColumn";
-            // 
-            // eventMinutesDataGridViewTextBoxColumn
-            // 
-            this.eventMinutesDataGridViewTextBoxColumn.DataPropertyName = "eventMinutes";
-            this.eventMinutesDataGridViewTextBoxColumn.HeaderText = "משך בדקות";
-            this.eventMinutesDataGridViewTextBoxColumn.Name = "eventMinutesDataGridViewTextBoxColumn";
-            // 
-            // eventPictureDataGridViewTextBoxColumn
-            // 
-            this.eventPictureDataGridViewTextBoxColumn.DataPropertyName = "eventPicture";
-            this.eventPictureDataGridViewTextBoxColumn.HeaderText = "תמונה";
-            this.eventPictureDataGridViewTextBoxColumn.Name = "eventPictureDataGridViewTextBoxColumn";
-            // 
             // firstButton
             // 
             this.firstButton.Location = new System.Drawing.Point(1243, 251);
@@ -429,6 +381,57 @@
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
+            // eventIDDataGridViewTextBoxColumn
+            // 
+            this.eventIDDataGridViewTextBoxColumn.DataPropertyName = "eventID";
+            this.eventIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. אירוע";
+            this.eventIDDataGridViewTextBoxColumn.Name = "eventIDDataGridViewTextBoxColumn";
+            // 
+            // eventTypeDataGridViewTextBoxColumn
+            // 
+            this.eventTypeDataGridViewTextBoxColumn.DataPropertyName = "eventType";
+            this.eventTypeDataGridViewTextBoxColumn.HeaderText = "סוג אירוע";
+            this.eventTypeDataGridViewTextBoxColumn.Name = "eventTypeDataGridViewTextBoxColumn";
+            // 
+            // eventNameDataGridViewTextBoxColumn
+            // 
+            this.eventNameDataGridViewTextBoxColumn.DataPropertyName = "eventName";
+            this.eventNameDataGridViewTextBoxColumn.HeaderText = "שם אירוע";
+            this.eventNameDataGridViewTextBoxColumn.Name = "eventNameDataGridViewTextBoxColumn";
+            // 
+            // eventMemberIDDataGridViewTextBoxColumn
+            // 
+            this.eventMemberIDDataGridViewTextBoxColumn.DataPropertyName = "eventMemberID";
+            this.eventMemberIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. בעל אירוע";
+            this.eventMemberIDDataGridViewTextBoxColumn.Name = "eventMemberIDDataGridViewTextBoxColumn";
+            // 
+            // eventDateDataGridViewTextBoxColumn
+            // 
+            this.eventDateDataGridViewTextBoxColumn.DataPropertyName = "eventDate";
+            this.eventDateDataGridViewTextBoxColumn.HeaderText = "תאריך";
+            this.eventDateDataGridViewTextBoxColumn.Name = "eventDateDataGridViewTextBoxColumn";
+            // 
+            // eventTimeDataGridViewTextBoxColumn
+            // 
+            this.eventTimeDataGridViewTextBoxColumn.DataPropertyName = "eventTime";
+            dataGridViewCellStyle1.Format = "t";
+            dataGridViewCellStyle1.NullValue = null;
+            this.eventTimeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.eventTimeDataGridViewTextBoxColumn.HeaderText = "שעה";
+            this.eventTimeDataGridViewTextBoxColumn.Name = "eventTimeDataGridViewTextBoxColumn";
+            // 
+            // eventMinutesDataGridViewTextBoxColumn
+            // 
+            this.eventMinutesDataGridViewTextBoxColumn.DataPropertyName = "eventMinutes";
+            this.eventMinutesDataGridViewTextBoxColumn.HeaderText = "משך בדקות";
+            this.eventMinutesDataGridViewTextBoxColumn.Name = "eventMinutesDataGridViewTextBoxColumn";
+            // 
+            // eventPictureDataGridViewTextBoxColumn
+            // 
+            this.eventPictureDataGridViewTextBoxColumn.DataPropertyName = "eventPicture";
+            this.eventPictureDataGridViewTextBoxColumn.HeaderText = "תמונה";
+            this.eventPictureDataGridViewTextBoxColumn.Name = "eventPictureDataGridViewTextBoxColumn";
+            // 
             // FormUpdateEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -508,6 +511,7 @@
         private System.Windows.Forms.TextBox evID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventNameDataGridViewTextBoxColumn;
@@ -516,6 +520,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn eventTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventMinutesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventPictureDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button deleteButton;
     }
 }

@@ -33,6 +33,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTblEvents));
             this.saveButton = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.tblEventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSetEvents = new Calendar.DataSetEvents();
+            this.tblEventsTableAdapter = new Calendar.DataSetEventsTableAdapters.tblEventsTableAdapter();
+            this.label1 = new System.Windows.Forms.Label();
             this.eventIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eventTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eventNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,10 +45,6 @@
             this.eventTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eventMinutesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eventPictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tblEventsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSetEvents = new Calendar.DataSetEvents();
-            this.tblEventsTableAdapter = new Calendar.DataSetEventsTableAdapters.tblEventsTableAdapter();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblEventsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetEvents)).BeginInit();
@@ -82,6 +82,31 @@
             this.dataGridView2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dataGridView2.Size = new System.Drawing.Size(1164, 185);
             this.dataGridView2.TabIndex = 2;
+            // 
+            // tblEventsBindingSource
+            // 
+            this.tblEventsBindingSource.DataMember = "tblEvents";
+            this.tblEventsBindingSource.DataSource = this.dataSetEvents;
+            // 
+            // dataSetEvents
+            // 
+            this.dataSetEvents.DataSetName = "DataSetEvents";
+            this.dataSetEvents.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tblEventsTableAdapter
+            // 
+            this.tblEventsTableAdapter.ClearBeforeFill = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(582, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(183, 31);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "טבלת אירועים";
             // 
             // eventIDDataGridViewTextBoxColumn
             // 
@@ -133,31 +158,6 @@
             this.eventPictureDataGridViewTextBoxColumn.DataPropertyName = "eventPicture";
             this.eventPictureDataGridViewTextBoxColumn.HeaderText = "תמונה";
             this.eventPictureDataGridViewTextBoxColumn.Name = "eventPictureDataGridViewTextBoxColumn";
-            // 
-            // tblEventsBindingSource
-            // 
-            this.tblEventsBindingSource.DataMember = "tblEvents";
-            this.tblEventsBindingSource.DataSource = this.dataSetEvents;
-            // 
-            // dataSetEvents
-            // 
-            this.dataSetEvents.DataSetName = "DataSetEvents";
-            this.dataSetEvents.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tblEventsTableAdapter
-            // 
-            this.tblEventsTableAdapter.ClearBeforeFill = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(582, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(183, 31);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "טבלת אירועים";
             // 
             // FormTblEvents
             // 

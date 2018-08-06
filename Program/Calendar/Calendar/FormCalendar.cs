@@ -20,6 +20,7 @@ namespace Calendar
         bool isAdmin;
         int userID;
         int index = 0;
+        string[] gregMonths = { "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר" };
         public FormCalendar(OleDbConnection dataConnection, bool isAdmin, int id)
         {
             this.dataConnection = dataConnection;
@@ -179,9 +180,8 @@ namespace Calendar
         private int GetCurrentMonth()
         {
             int month;
-            string[] months = CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
             for (month = 0; month < 12; month++)
-                if (monthLabel.Text == months[month])
+                if (monthLabel.Text == gregMonths[month])
                     return month + 1;
             return -1;
 
@@ -199,6 +199,7 @@ namespace Calendar
                 AddParashot();
                 AddHolidays();
                 AddEventSignsToTable();
+                EnableDisableShowTodayButton();
             }
             catch (Exception err)
             {
@@ -231,9 +232,10 @@ namespace Calendar
         {
             try
             {
-                string[] months = CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
                 yearLabel.Text = date.Year.ToString();
-                monthLabel.Text = months[date.Month - 1];
+                monthLabel.Text = gregMonths[date.Month - 1];
+                monthsComboBox.Text = date.Month.ToString();
+                yearTextBox.Text = date.Year.ToString();
             }
             catch (Exception err)
             {
@@ -484,7 +486,7 @@ namespace Calendar
                              "ניתן להשתמש באפשרות \"הוספה\" שבתפריט הראשי בכדי להוסיף את השנה הנוכחית למאגר." +
                              "\n\n" +
                              "הודעה זו תמשיך להופיע בכל חודש בשנה הנוכחית עד שהמשתמש יוסיף אותה למאגר הנתונים.";
-                MessageBox.Show(msg, "שים לב!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+                MessageBox.Show(msg, "שים לב!", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
             }
             catch (Exception err)
             {
@@ -614,6 +616,61 @@ namespace Calendar
                 MessageBox.Show("SetHasEvent failed\n" + err.Message, "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AddHolidays()
+        {
+            RichTextBox month_x_y;
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 6; j++)
+                {
+                    month_x_y = GetMonth_x_y(i, j);
+                    AddHolidayToDay(month_x_y);
+                }
+        }
+
+        private void AddHolidayToDay(RichTextBox month_x_y)
+        {
+            DateTime date = GetDate(month_x_y);
+            int month = hebCal.GetMonth(date);
+            int day = hebCal.GetDayOfMonth(date);
+            if (hebCal.IsLeapYear(hebCal.GetYear(date)) && month >= 6)
+                month--;
+            string holidayText = null;
+            //rosh hasana
+            if (month == 1 && (day == 1 || day == 2))
+                holidayText = "ראש השנה";
+            //kipur
+            else if (month == 1 && day == 10)
+                holidayText = "יום כיפור";
+            //succot
+            else if (month == 1 && (day <= 21 && day >= 15))
+                holidayText = "סוכות";
+            else if (month == 1 && day == 22)
+                holidayText = "שמחת תורה";
+            else if ((month == 3 && day >= 25) || (month == 4 && day <= 3))
+                holidayText = "חנוכה";
+            else if (month == 6 && day == 14)
+                holidayText = "פורים";
+            else if (month == 7 && day >= 15 && day <= 21)
+                holidayText = "פסח";
+            else if (month == 9 && day == 6)
+                holidayText = "שבועות";
+            //no holiday-> return
+            if (String.IsNullOrEmpty(holidayText))
+                return;
+            //append text in blue color
+            month_x_y.SelectionColor = Color.Blue;
+            month_x_y.AppendText(Environment.NewLine + holidayText);
+            month_x_y.SelectionAlignment = HorizontalAlignment.Center;
+        }
+
+        private void EnableDisableShowTodayButton()
+        {
+            if (GetCurrentMonth() == DateTime.Today.Month && yearTextBox.Text == DateTime.Today.Year.ToString())
+                showTodayButton.Enabled = false;
+            else
+                showTodayButton.Enabled = true;
         }
 
         //SHOWING EVENTS INFO
@@ -836,50 +893,31 @@ namespace Calendar
             ShowCalendar(DateTime.Parse("1/" + GetCurrentMonth() + "/" + yearLabel.Text));
         }
 
-        private void Month_x_y_Click(object sender, EventArgs e)
+        private void SetEventsAnnualsOnDate(DateTime date,ref int[] ids, ref bool[] isAnnuals)
         {
             try
             {
-                //check if table is clear(show buttons wasn't clicked)
-                if (month_2_3.Text == "")
-                    return;
-                RichTextBox month_x_y = (RichTextBox)sender;
-                //checks if has events
-                if (!month_x_y.Text.Contains('@'))
-                    return;
-                string[] events = new string[1];
-                int[] ids = new int[1];
-                bool[] isAnnuals = new bool[1];
-                DateTime date = GetDate(month_x_y);
-                index = 0;
-                SetEventsAnnualsOnDate(date, ref ids, ref isAnnuals, ref events);
-                FormChooseEvent fr = new FormChooseEvent(events, ids, isAnnuals, dataConnection,isAdmin);
-                this.Hide();
-                fr.Show();
-                fr.Disposed += fr_Disposed;
+                SetEventsOnDate(date, ref ids, ref isAnnuals);
+                SetAnnualsOnDate(date, ref ids, ref isAnnuals);
             }
             catch (Exception err)
             {
-                MessageBox.Show("ShowPictures on click failed\n" + err.Message, "Error",
+                MessageBox.Show("SetEventsAnnualsOnDate failed\n" + err.Message, "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
 
-        private void SetEventsAnnualsOnDate(DateTime date,ref int[] ids, ref bool[] isAnnuals, ref string[] events)
+        private void SetAnnualsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals)
         {
-            SetEventsOnDate(date,ref ids, ref isAnnuals, ref events);
-            SetAnnualsOnDate(date, ref ids, ref isAnnuals, ref events);
-        }
-
-        private void SetAnnualsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals, ref string[] events)
-        {
+            try
+            {
                 if (!displayAnnualsCheckBox.Checked)
                     return;
                 int year = date.Year, month = date.Month, day = date.Day;
                 OleDbCommand datacommand = new OleDbCommand();
                 datacommand.Connection = dataConnection;
-                datacommand.CommandText = "SELECT * " +
+                datacommand.CommandText = "SELECT annualID " +
                                         "FROM tblAnnuals " +
                                         "WHERE annualYear= " + year + " AND annualMonth= " + month + " AND annualDay = " + day + " AND annualGregorian = true " +
                                         "ORDER BY annualID";
@@ -887,68 +925,88 @@ namespace Calendar
                 while (dataReader.Read())
                 {
                     if (index == ids.Length)
-                        ResizeArrays(ref ids, ref events, ref isAnnuals, ids.Length + 1);
+                        ResizeArrays(ref ids, ref isAnnuals, ids.Length + 1);
                     isAnnuals[index] = true;
-                    ids[index] = dataReader.GetInt32(0);
-                    events[index++] = dataReader.GetString(2);
+                    ids[index++] = dataReader.GetInt32(0);
                 }
                 dataReader.Close();
-                SetHebAnnualsOnDate(date, ref ids, ref isAnnuals, ref events);
+                SetHebAnnualsOnDate(date, ref ids, ref isAnnuals);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("SetAnnualsOnDate failed\n" + err.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
-        private void SetHebAnnualsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals, ref string[] events)
+        private void SetHebAnnualsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals)
         {
+            try
+            {
                 HebrewCalendar hebDate = new HebrewCalendar();
                 int month = hebDate.GetMonth(date), day = hebDate.GetDayOfMonth(date);
                 OleDbCommand datacommand = new OleDbCommand();
                 datacommand.Connection = dataConnection;
-                datacommand.CommandText = "SELECT *" +
+                datacommand.CommandText = "SELECT annualID " +
                                         "FROM tblAnnuals " +
-                                        "WHERE annualGregorian = false AND annualMonth= " + month + " AND annualDay = " + day+" "+
+                                        "WHERE annualGregorian = false AND annualMonth= " + month + " AND annualDay = " + day + " " +
                                         "ORDER BY annualID";
                 OleDbDataReader dataReader = datacommand.ExecuteReader();
                 while (dataReader.Read())
                 {
                     int annualID = dataReader.GetInt32(0);
-                    string annualName = dataReader.GetString(2);
                     if (index == ids.Length)
-                        ResizeArrays(ref ids, ref events, ref isAnnuals, ids.Length + 1);
+                        ResizeArrays(ref ids, ref isAnnuals, ids.Length + 1);
                     ids[index] = annualID;
-                    isAnnuals[index] = true;
-                    events[index++] = annualName;
+                    isAnnuals[index++] = true;
                 }
                 dataReader.Close();
-        }
-
-        private void SetEventsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals, ref string[] events)
-        {
-            OleDbCommand datacommand = new OleDbCommand();
-            datacommand.Connection = dataConnection;
-            datacommand.CommandText = "SELECT * " +
-                                     "FROM tblEvents " +
-                                     "ORDER BY eventID";
-            OleDbDataReader dataReader = datacommand.ExecuteReader();
-            while (dataReader.Read())
-            {
-                //if not month_x_y's date, continue
-                if (dataReader.GetDateTime(4).CompareTo(date) != 0)
-                    continue;
-                //skip if not user's event and allUsersCheckBox isn't checked
-                if (!allUsersCheckBox.Checked && dataReader.GetInt32(3) != userID)
-                    continue;
-                if (index == ids.Length)
-                    ResizeArrays(ref ids, ref events, ref isAnnuals, ids.Length + 1);                    
-                isAnnuals[index] = false;
-                ids[index] = dataReader.GetInt32(0);
-                events[index++] = dataReader.GetString(2);
             }
-            dataReader.Close();
+            catch (Exception err)
+            {
+                MessageBox.Show("SetHebAnnualsOnDate failed\n" + err.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
-        private void ResizeArrays(ref int[] ids, ref string[] events, ref bool[] isAnnuals, int newLength)
+        private void SetEventsOnDate(DateTime date, ref int[] ids, ref bool[] isAnnuals)
+        {
+            try
+            {
+                OleDbCommand datacommand = new OleDbCommand();
+                datacommand.Connection = dataConnection;
+                datacommand.CommandText = "SELECT eventID, eventDate, eventMemberID " +
+                                         "FROM tblEvents " +
+                                         "ORDER BY eventID";
+                OleDbDataReader dataReader = datacommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    //if not month_x_y's date, continue
+                    if (dataReader.GetDateTime(1).CompareTo(date) != 0)
+                        continue;
+                    //skip if not user's event and allUsersCheckBox isn't checked
+                    if (!allUsersCheckBox.Checked && dataReader.GetInt32(2) != userID)
+                        continue;
+                    if (index == ids.Length)
+                        ResizeArrays(ref ids, ref isAnnuals, ids.Length + 1);
+                    isAnnuals[index] = false;
+                    ids[index++] = dataReader.GetInt32(0);
+                }
+                dataReader.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("SetEventsOnDate failed\n" + err.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ResizeArrays(ref int[] ids,ref bool[] isAnnuals, int newLength)
         {
             Array.Resize<int>(ref ids, newLength);
-            Array.Resize<string>(ref events, newLength);
             Array.Resize<bool>(ref isAnnuals, newLength);  
         }
 
@@ -960,51 +1018,225 @@ namespace Calendar
             ShowCalendar(DateTime.Parse("1/" + GetCurrentMonth() + "/" + yearLabel.Text));
         }
 
-        private void AddHolidays()
+        private void ExitButtonClick(object sender, EventArgs e)
         {
-            RichTextBox month_x_y;
-            for (int i = 0; i < 5; i++)
-                for (int j = 0; j < 6; j++)
-                {
-                    month_x_y = GetMonth_x_y(i, j);
-                    AddHolidayToDay(month_x_y);
-                }
+            DialogResult dialogResult = MessageBox.Show("האם אתה בטוח?", "אישור יציאה", MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                                            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            if (dialogResult == DialogResult.No)
+                return;
+            Application.Exit();
         }
 
-        private void AddHolidayToDay(RichTextBox month_x_y)
+        private void Month_x_y_MouseClick(object sender, MouseEventArgs mouseEvent)
         {
-            DateTime date = GetDate(month_x_y);
-            int month = hebCal.GetMonth(date);
-            int day = hebCal.GetDayOfMonth(date);
-            if (hebCal.IsLeapYear(hebCal.GetYear(date)) && month>=6)
-                month--;
-            string holidayText = null;
-            //rosh hasana
-            if (month == 1 && (day == 1 || day == 2))
-                holidayText = "ראש השנה";
-            //kipur
-            else if (month == 1 && day == 10)
-                holidayText = "יום כיפור";
-            //succot
-            else if (month == 1 && (day <= 21 && day >= 15))
-                holidayText = "סוכות";
-            else if (month == 1 && day == 22)
-                holidayText = "שמחת תורה";
-            else if ((month == 3 && day >= 25) || (month == 4 && day <= 3))
-                holidayText = "חנוכה";
-            else if (month == 6 && day == 14)
-                holidayText = "פורים";
-            else if (month == 7 && day >= 15 && day <= 21)
-                holidayText = "פסח";
-            else if (month == 9 && day == 6)
-                holidayText = "שבועות";
-            //no holiday-> return
-            if (String.IsNullOrEmpty(holidayText))
+            try
+            {
+                //check if table is clear(show buttons wasn't clicked)
+                if (month_2_3.Text == "")
+                    return;
+                RichTextBox month_x_y = (RichTextBox)sender;
+                //if not mouse *click* return
+                if (mouseEvent.Button != MouseButtons.Right && mouseEvent.Button != MouseButtons.Left)
+                {
+                    if (mouseEvent.Button == MouseButtons.Middle)
+                        Month_x_y_MouseMiddleButtonClick(month_x_y);
+                    return;
+                }
+                //non-admin can't edit
+                if (mouseEvent.Button == MouseButtons.Right && !isAdmin)
+                    return;
+                //checks if has events
+                if (!month_x_y.Text.Contains('@'))
+                    return;
+                int[] ids = new int[1];
+                bool[] isAnnuals = new bool[1];
+                DateTime date = GetDate(month_x_y);
+                index = 0;
+                SetEventsAnnualsOnDate(date, ref ids, ref isAnnuals);
+                FormChooseEvent fr = new FormChooseEvent(ids, isAnnuals, dataConnection, mouseEvent.Button);
+                this.Hide();
+                fr.Show();
+                fr.Disposed += fr_Disposed;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Show & Edit Pictures on click failed\n" + err.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            //append text in blue color
-            month_x_y.SelectionColor = Color.Blue;
-            month_x_y.AppendText(Environment.NewLine + holidayText);
-            month_x_y.SelectionAlignment = HorizontalAlignment.Center;
+            }
         }
+
+        private void Month_x_y_MouseMiddleButtonClick(RichTextBox month_x_y)
+        {
+            //for admins only!
+            if (!isAdmin)
+                return;
+            DateTime date = GetDate(month_x_y);
+            string msg = "להוספת אירוע שנתי, לחץ \"כן\"" + "\n" +
+                       "להוספת אירוע רגיל, לחץ \"לא\""+"\n"+
+                       "לביטול, לחץ \"ביטול\"";
+            DialogResult dialogResult = MessageBox.Show(msg, "הוספת אירוע", MessageBoxButtons.YesNoCancel,
+                                                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                                            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            if (dialogResult == DialogResult.No)
+            {
+                FormAddEvent fr = new FormAddEvent(dataConnection, date);
+                this.Hide();
+                fr.Show();
+                fr.Disposed += fr_Disposed;
+            }
+            else if (dialogResult == DialogResult.Yes)
+            {
+                FormAddAnnual fr = new FormAddAnnual(dataConnection, date);
+                this.Hide();
+                fr.Show();
+                fr.Disposed += fr_Disposed;
+            }
+            else
+                return;
+        }
+
+        private void showInstrButton_Click(object sender, EventArgs e)
+        {
+            string msg = "בלחיצה על הלחצן השמאלי בעכבר על יום עם אירוע, תוכל להציג את האירוע בצורה מפורטת, בטופס נפרד" + "\n" +
+                         "למנהלים בלבד: בלחיצה על הלחצן הימני בעכבר, תוכל לערוך/למחוק את האירוע." + "\n" +
+                         "למנהלים בלבד: בלחיצה על הלחצן האמצעי בעכבר (לחיצה על הגלגלת), על כל יום בחודש (יום המציג תאריך ואינו ריק), גם אם אין בו אירוע, תוכל להוסיף אירוע לאותו יום , בטופס נפרד.";
+            MessageBox.Show(msg, "חידושי הגרסה האחרונה", MessageBoxButtons.OK,
+                                                            MessageBoxIcon.Information, MessageBoxDefaultButton.Button1,
+                                                            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+        }
+
+        private void showTodayButton_MouseHover(object sender, EventArgs e)
+        {
+            string msg;
+            msg = "בלחיצה על \"הצג תאריך נוכחי\" תועבר לחודש הנוכחי, חודש " + gregMonths[DateTime.Today.Month - 1]+" בשנת "+DateTime.Today.Year;
+            eventsToolTip.SetToolTip(showTodayButton, msg);
+        }
+
+        private void prevMonthButton_MouseHover(object sender, EventArgs e)
+        {
+            string msg;
+            int year=int.Parse(yearTextBox.Text);
+            msg = "בלחיצה על \"החודש הקודם\" תועבר לחודש הקודם, חודש ";
+            if (GetCurrentMonth() == 1)
+            {
+                msg += gregMonths[11];
+                year--;
+            }
+            else
+                msg += gregMonths[GetCurrentMonth() - 2];//-2 for prevMonth(-1-1)
+            msg += " בשנת " + year;
+            eventsToolTip.SetToolTip(prevMonthButton, msg);
+        }
+
+        private void NextMonthButton_MouseHover(object sender, EventArgs e)
+        {
+            string msg;
+            int year=int.Parse(yearTextBox.Text);
+            msg = "בלחיצה על \"החודש הבא\" תועבר לחודש הבא, חודש ";
+            if (GetCurrentMonth() == 12)
+            {
+                msg += gregMonths[0];
+                year++;
+            }
+            else
+                msg += gregMonths[GetCurrentMonth()];// for nextMonth(-1+1)
+            msg += " בשנת " + year;
+            eventsToolTip.SetToolTip(nextMonthButton, msg);
+        }
+
+        private void showButton_MouseHover(object sender, EventArgs e)
+        {
+            if (yearTextBox.Text == ""  || monthsComboBox.SelectedIndex == -1)
+            {
+                eventsToolTip.SetToolTip(showButton, "לא נבחר חודש או שהנתונים לא מתאימים לבחירת חודש. נסה שנית");
+                return;
+            }
+            string msg = "בלחיצה על \"הצג חודש נבחר\", תועבר לחודש הנבחר, חודש " + gregMonths[monthsComboBox.SelectedIndex] + " בשנת " + yearTextBox.Text;
+            eventsToolTip.SetToolTip(showButton, msg);
+        }
+
+        private void monthsComboBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!monthsComboBox.Items.Contains(monthsComboBox.Text) && monthsComboBox.Text!="")
+            {
+                MessageBox.Show("הטקסט שהקשת בתיבת ה\"חודש\" אינו מתאים לאחד מן החודשים (1-12).\n אנא הקש מספר מתאים", "שגיאה",
+                MessageBoxButtons.OK, MessageBoxIcon.Error,MessageBoxDefaultButton.Button1,MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading);
+                monthsComboBox.ResetText();
+            }
+        }
+
+        private RichTextBox GetMonth_x_y(int day)
+        {
+            DateTime date = new DateTime(int.Parse(yearLabel.Text), GetCurrentMonth(), day);
+            for (int i = 0; i < 5; i++)
+                    for (int j = 0; j < 7; j++)
+                        if(GetDate(GetMonth_x_y(i,j)).CompareTo(date)==0)
+                            return GetMonth_x_y(i,j);
+            for (int j = 0; j < 2; j++)
+                    if(GetDate(GetMonth_x_y(5,j)).CompareTo(date)==0)
+                            return GetMonth_x_y(5,j);
+            return null;
+        }
+
+        private void SearchButton_Click(object sender, EventArgs e)
+        {
+            SearchEvent();
+            eventNameTextBox.Text="";
+        }
+
+        private void SearchEvent()
+        {
+            try
+            {
+                string eventName = eventNameTextBox.Text;
+                DateTime eventDate = new DateTime(1, 1, 1);
+                OleDbCommand datacommand = new OleDbCommand();
+                datacommand.Connection = dataConnection;
+                datacommand.CommandText = "SELECT eventDate FROM tblEvents WHERE eventName = \"" + eventName + "\" ORDER BY eventName";
+                OleDbDataReader dataReader = datacommand.ExecuteReader();
+                if (dataReader.Read())
+                    eventDate = dataReader.GetDateTime(0);
+                dataReader.Close();
+                if (eventDate.CompareTo(new DateTime(1, 1, 1)) == 0)
+                {
+                    MessageBox.Show("No event found.\n", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                ShowCalendar(new DateTime(eventDate.Year,eventDate.Month,1));
+                RichTextBox theDay = GetMonth_x_y(eventDate.Day);
+                theDay.AppendText(Environment.NewLine + "יום האירוע המבוקש");
+                theDay.Font = new Font(theDay.Font, FontStyle.Bold);
+                theDay.SelectionAlignment = HorizontalAlignment.Center;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void AllUsersCheckedChanged(object sender, EventArgs e)
+        {
+            CheckedChanged(sender, e);
+            if (allUsersCheckBox.Checked)
+            {
+                searchButton.Enabled = true;
+                eventNameTextBox.ResetText();
+            }
+            else
+            {
+                searchButton.Enabled = false;
+                eventNameTextBox.Text = "כדי לחפש אירוע, \nיש לבחור ב\"הצג את אירועי כל המשתמשים\"";
+            }
+        }
+
+
+
+        //TODO:
+        //      Search option
+        //      week presentation
+        //      print option
     }
 }

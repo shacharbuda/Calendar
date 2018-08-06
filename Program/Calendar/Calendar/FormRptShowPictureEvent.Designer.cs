@@ -67,10 +67,12 @@
             // 
             // evTime
             // 
-            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.evTime.CustomFormat = "HH:mm";
+            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.evTime.Location = new System.Drawing.Point(107, 377);
             this.evTime.Margin = new System.Windows.Forms.Padding(4);
             this.evTime.Name = "evTime";
+            this.evTime.ShowUpDown = true;
             this.evTime.Size = new System.Drawing.Size(103, 22);
             this.evTime.TabIndex = 150;
             // 

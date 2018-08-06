@@ -252,12 +252,15 @@
             // 
             // evTime
             // 
-            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.evTime.CustomFormat = "HH:mm";
+            this.evTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.evTime.Location = new System.Drawing.Point(927, 159);
             this.evTime.Margin = new System.Windows.Forms.Padding(4);
             this.evTime.Name = "evTime";
+            this.evTime.ShowUpDown = true;
             this.evTime.Size = new System.Drawing.Size(103, 22);
             this.evTime.TabIndex = 82;
+            this.evTime.Value = new System.DateTime(2017, 6, 20, 0, 0, 0, 0);
             // 
             // tblEventsTableAdapter
             // 
@@ -330,7 +333,7 @@
             // eventTimeDataGridViewTextBoxColumn
             // 
             this.eventTimeDataGridViewTextBoxColumn.DataPropertyName = "eventTime";
-            dataGridViewCellStyle1.Format = "T";
+            dataGridViewCellStyle1.Format = "t";
             dataGridViewCellStyle1.NullValue = null;
             this.eventTimeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.eventTimeDataGridViewTextBoxColumn.HeaderText = "שעה";

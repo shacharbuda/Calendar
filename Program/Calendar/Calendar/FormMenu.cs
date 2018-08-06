@@ -276,8 +276,8 @@ namespace Calendar
         private void CalendarButtonClick(object sender, EventArgs e)
         {
             this.Hide();
-            FormCalendar frCal = new FormCalendar(dataConnection,isAdmin,userID);
-            frCal.Show();
+            FormCalendar frCal = new FormCalendar(dataConnection, isAdmin, userID);
+            frCal.Show();                
             frCal.Disposed += fr_Disposed;
         }
 
@@ -285,6 +285,16 @@ namespace Calendar
         {
             this.Show();
             this.Activate();
+        }
+
+        private void ExitButtonClick(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("האם אתה בטוח?", "אישור יציאה", MessageBoxButtons.YesNo,
+                                                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                                            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
+            if (dialogResult == DialogResult.No)
+                return;
+            Application.Exit();
         }
 
 

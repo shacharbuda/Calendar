@@ -19,6 +19,7 @@ namespace Calendar
         int userID;
         public FormLogin()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");//change culture for program running
             InitializeComponent();
             OpenDb();
         }
@@ -99,9 +100,15 @@ namespace Calendar
 
         void frMenu_Disposed(object sender, EventArgs e)
         {
-            InitializeItems();
-            this.Show();
-            this.Activate();
+            try
+            {
+                this.Show();
+                this.Activate();
+                InitializeItems();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         //used for returning to form after exiting mainMenu.

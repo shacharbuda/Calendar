@@ -69,6 +69,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helloLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.exitButton = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -406,12 +407,23 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "התפריט הראשי";
             // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(375, 214);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(148, 26);
+            this.exitButton.TabIndex = 5;
+            this.exitButton.Text = "יציאה מהמערכת";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.ExitButtonClick);
+            // 
             // FormMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(523, 241);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.helloLabel);
             this.Controls.Add(this.pictureBox1);
@@ -471,6 +483,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label helloLabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button exitButton;
     }
 }
 

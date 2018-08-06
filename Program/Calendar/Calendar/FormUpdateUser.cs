@@ -127,7 +127,7 @@ namespace Calendar
             try
             {
                 DialogResult dialogResult = MessageBox.Show("האם אתה בטוח?", "אישור מחיקה", MessageBoxButtons.YesNo,
-                                                            MessageBoxIcon.Information, MessageBoxDefaultButton.Button1,
+                                                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
                                                             MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign);
                 if (dialogResult == DialogResult.No)
                     return;

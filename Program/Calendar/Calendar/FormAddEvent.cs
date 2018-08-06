@@ -17,13 +17,26 @@ namespace Calendar
         private OleDbConnection dataConnection;
         public FormAddEvent(OleDbConnection dataConnection,bool isAdmin)
         {
+            InitializeForm(dataConnection);
+            if (!isAdmin)
+                addButton.Enabled = false;
+        }
+
+        public FormAddEvent(OleDbConnection dataConnection,DateTime date)
+        {
+            InitializeForm(dataConnection);
+            evDate.Value = date;
+            evDate.Enabled = false;
+        }
+
+        private void InitializeForm(OleDbConnection dataConnection)
+        {
             InitializeComponent();
             this.dataConnection = dataConnection;
             FillMemIDCombo();
             FillTypeCombo();
-            if (!isAdmin)
-                addButton.Enabled = false;
         }
+
         private void FillTypeCombo()                                   // Populate eventsType combobox
         {
             try

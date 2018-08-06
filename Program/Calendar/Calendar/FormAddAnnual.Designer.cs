@@ -45,6 +45,14 @@
             this.tblUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tblUsersTableAdapter = new Calendar.DataSetUsersTableAdapters.tblUsersTableAdapter();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.annualIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualYearDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualMonthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualDayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.annualGregorianDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.annualPictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tblAnnualsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSetAnnuals = new Calendar.DataSetAnnuals();
             this.label13 = new System.Windows.Forms.Label();
@@ -56,14 +64,7 @@
             this.tblAnnualsTableAdapter = new Calendar.DataSetAnnualsTableAdapters.tblAnnualsTableAdapter();
             this.anType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.annualIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualYearDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualMonthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualDayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.annualGregorianDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.annualPictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelHebDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblUsersBindingSource)).BeginInit();
@@ -130,6 +131,7 @@
             this.anGreg.TabIndex = 59;
             this.anGreg.Text = "תאריך לועזי?";
             this.anGreg.UseVisualStyleBackColor = true;
+            this.anGreg.CheckedChanged += new System.EventHandler(this.anGreg_CheckedChanged);
             // 
             // anDay
             // 
@@ -138,6 +140,7 @@
             this.anDay.Name = "anDay";
             this.anDay.Size = new System.Drawing.Size(132, 22);
             this.anDay.TabIndex = 52;
+            this.anDay.TextChanged += new System.EventHandler(this.anGreg_CheckedChanged);
             // 
             // anMonth
             // 
@@ -146,6 +149,7 @@
             this.anMonth.Name = "anMonth";
             this.anMonth.Size = new System.Drawing.Size(132, 22);
             this.anMonth.TabIndex = 57;
+            this.anMonth.TextChanged += new System.EventHandler(this.anGreg_CheckedChanged);
             // 
             // anYear
             // 
@@ -154,6 +158,7 @@
             this.anYear.Name = "anYear";
             this.anYear.Size = new System.Drawing.Size(132, 22);
             this.anYear.TabIndex = 54;
+            this.anYear.TextChanged += new System.EventHandler(this.anGreg_CheckedChanged);
             // 
             // anName
             // 
@@ -208,6 +213,55 @@
             this.dataGridView2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dataGridView2.Size = new System.Drawing.Size(1153, 185);
             this.dataGridView2.TabIndex = 38;
+            // 
+            // annualIDDataGridViewTextBoxColumn
+            // 
+            this.annualIDDataGridViewTextBoxColumn.DataPropertyName = "annualID";
+            this.annualIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. אירוע";
+            this.annualIDDataGridViewTextBoxColumn.Name = "annualIDDataGridViewTextBoxColumn";
+            // 
+            // annualTypeDataGridViewTextBoxColumn
+            // 
+            this.annualTypeDataGridViewTextBoxColumn.DataPropertyName = "annualType";
+            this.annualTypeDataGridViewTextBoxColumn.HeaderText = "סוג אירוע";
+            this.annualTypeDataGridViewTextBoxColumn.Name = "annualTypeDataGridViewTextBoxColumn";
+            // 
+            // annualNameDataGridViewTextBoxColumn
+            // 
+            this.annualNameDataGridViewTextBoxColumn.DataPropertyName = "annualName";
+            this.annualNameDataGridViewTextBoxColumn.HeaderText = "שם אירוע";
+            this.annualNameDataGridViewTextBoxColumn.Name = "annualNameDataGridViewTextBoxColumn";
+            // 
+            // annualYearDataGridViewTextBoxColumn
+            // 
+            this.annualYearDataGridViewTextBoxColumn.DataPropertyName = "annualYear";
+            this.annualYearDataGridViewTextBoxColumn.HeaderText = "שנה";
+            this.annualYearDataGridViewTextBoxColumn.Name = "annualYearDataGridViewTextBoxColumn";
+            // 
+            // annualMonthDataGridViewTextBoxColumn
+            // 
+            this.annualMonthDataGridViewTextBoxColumn.DataPropertyName = "annualMonth";
+            this.annualMonthDataGridViewTextBoxColumn.HeaderText = "חודש";
+            this.annualMonthDataGridViewTextBoxColumn.Name = "annualMonthDataGridViewTextBoxColumn";
+            // 
+            // annualDayDataGridViewTextBoxColumn
+            // 
+            this.annualDayDataGridViewTextBoxColumn.DataPropertyName = "annualDay";
+            this.annualDayDataGridViewTextBoxColumn.HeaderText = "יום";
+            this.annualDayDataGridViewTextBoxColumn.Name = "annualDayDataGridViewTextBoxColumn";
+            // 
+            // annualGregorianDataGridViewCheckBoxColumn
+            // 
+            this.annualGregorianDataGridViewCheckBoxColumn.DataPropertyName = "annualGregorian";
+            this.annualGregorianDataGridViewCheckBoxColumn.HeaderText = "לועזי?";
+            this.annualGregorianDataGridViewCheckBoxColumn.Name = "annualGregorianDataGridViewCheckBoxColumn";
+            // 
+            // annualPictureDataGridViewTextBoxColumn
+            // 
+            this.annualPictureDataGridViewTextBoxColumn.DataPropertyName = "annualPicture";
+            this.annualPictureDataGridViewTextBoxColumn.HeaderText = "תמונה";
+            this.annualPictureDataGridViewTextBoxColumn.Name = "annualPictureDataGridViewTextBoxColumn";
+            this.annualPictureDataGridViewTextBoxColumn.Width = 200;
             // 
             // tblAnnualsBindingSource
             // 
@@ -302,54 +356,15 @@
             this.label2.TabIndex = 65;
             this.label2.Text = "טבלת אירועים שנתיים";
             // 
-            // annualIDDataGridViewTextBoxColumn
+            // labelHebDate
             // 
-            this.annualIDDataGridViewTextBoxColumn.DataPropertyName = "annualID";
-            this.annualIDDataGridViewTextBoxColumn.HeaderText = "ת.ז. אירוע";
-            this.annualIDDataGridViewTextBoxColumn.Name = "annualIDDataGridViewTextBoxColumn";
-            // 
-            // annualTypeDataGridViewTextBoxColumn
-            // 
-            this.annualTypeDataGridViewTextBoxColumn.DataPropertyName = "annualType";
-            this.annualTypeDataGridViewTextBoxColumn.HeaderText = "סוג אירוע";
-            this.annualTypeDataGridViewTextBoxColumn.Name = "annualTypeDataGridViewTextBoxColumn";
-            // 
-            // annualNameDataGridViewTextBoxColumn
-            // 
-            this.annualNameDataGridViewTextBoxColumn.DataPropertyName = "annualName";
-            this.annualNameDataGridViewTextBoxColumn.HeaderText = "שם אירוע";
-            this.annualNameDataGridViewTextBoxColumn.Name = "annualNameDataGridViewTextBoxColumn";
-            // 
-            // annualYearDataGridViewTextBoxColumn
-            // 
-            this.annualYearDataGridViewTextBoxColumn.DataPropertyName = "annualYear";
-            this.annualYearDataGridViewTextBoxColumn.HeaderText = "שנה";
-            this.annualYearDataGridViewTextBoxColumn.Name = "annualYearDataGridViewTextBoxColumn";
-            // 
-            // annualMonthDataGridViewTextBoxColumn
-            // 
-            this.annualMonthDataGridViewTextBoxColumn.DataPropertyName = "annualMonth";
-            this.annualMonthDataGridViewTextBoxColumn.HeaderText = "חודש";
-            this.annualMonthDataGridViewTextBoxColumn.Name = "annualMonthDataGridViewTextBoxColumn";
-            // 
-            // annualDayDataGridViewTextBoxColumn
-            // 
-            this.annualDayDataGridViewTextBoxColumn.DataPropertyName = "annualDay";
-            this.annualDayDataGridViewTextBoxColumn.HeaderText = "יום";
-            this.annualDayDataGridViewTextBoxColumn.Name = "annualDayDataGridViewTextBoxColumn";
-            // 
-            // annualGregorianDataGridViewCheckBoxColumn
-            // 
-            this.annualGregorianDataGridViewCheckBoxColumn.DataPropertyName = "annualGregorian";
-            this.annualGregorianDataGridViewCheckBoxColumn.HeaderText = "לועזי?";
-            this.annualGregorianDataGridViewCheckBoxColumn.Name = "annualGregorianDataGridViewCheckBoxColumn";
-            // 
-            // annualPictureDataGridViewTextBoxColumn
-            // 
-            this.annualPictureDataGridViewTextBoxColumn.DataPropertyName = "annualPicture";
-            this.annualPictureDataGridViewTextBoxColumn.HeaderText = "תמונה";
-            this.annualPictureDataGridViewTextBoxColumn.Name = "annualPictureDataGridViewTextBoxColumn";
-            this.annualPictureDataGridViewTextBoxColumn.Width = 200;
+            this.labelHebDate.AutoSize = true;
+            this.labelHebDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.labelHebDate.Location = new System.Drawing.Point(1065, 74);
+            this.labelHebDate.Name = "labelHebDate";
+            this.labelHebDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.labelHebDate.Size = new System.Drawing.Size(0, 25);
+            this.labelHebDate.TabIndex = 66;
             // 
             // FormAddAnnual
             // 
@@ -357,6 +372,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1632, 523);
+            this.Controls.Add(this.labelHebDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.anType);
             this.Controls.Add(this.addButton);
@@ -428,5 +444,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn annualDayDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn annualGregorianDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn annualPictureDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label labelHebDate;
     }
 }
